@@ -10,7 +10,8 @@ def init_browser():
     return Browser("chrome", **executable_path, headless=False)
 
 
-def scrape():
+def scrape_info():
+    mars_data = {}
     browser = init_browser()
 
     # NASA Mars News  
@@ -71,36 +72,35 @@ def scrape():
     html_table
 
     # Mars Hemispheres
-    #Visit the Mars Hemispheres URL - New link(Original link is not working)
+    #Visit the Mars Hemispheres URL 
     mars_hem_url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars'
     browser.visit(mars_hem_url)
     html4 = browser.html
     soup4 = bs(html4, 'html.parser')
 
-    hemispheres = soup4.find_all('div', class_="full-content")
-
-    hem_title = soup4.find('div', class_="item").find('h3').text
-    hem_title
-
-    hem_img = soup4.find('div', class_="item").find('a').get('href')
-    hem_img
-
-    hem_url = 'https://astrogeology.usgs.gov/'
-    print(f'https://astrogeology.usgs.gov/'+hem_img)
-
-    hemispheres=soup4.find_all('div', class_="item")
-
-    #Loops through site for image and links 
     hem_urls=[]
 
-    for hemisphere in hemispheres:
-        #hemisphere_dict = {}
-        hem_title = hemisphere.find('a').find('img').get('alt')
-        hem_img_temp = hemisphere.find('a').get('href')
-        hem_img = f'https://www.jpl.nasa.gov{hem_img_temp}'
-        hem_urls.append({'title':hem_title,'img_urls':hem_img})
-        #print(hem_title, hem_img)
-    hem_urls
+    for hem in range (4):
+        time.sleep(2)
+        images = browser.find_by_tag('h3')
+        images[hem].click()
+        html4 = browser.html
+        soup4 = bs(html4, 'html.parser')
+        partial = soup4.find("img", class_="wide-image")["src"]
+        img_title = soup4.find("h2",class_="title").text
+        img_url = 'https://astrogeology.usgs.gov'+ partial
+        dictionary={"title":img_title,"img_url":img_url}
+        hem_urls.append(dictionary)
+        browser.back() 
+
+    # for hemisphere in hemispheres:
+    #     #hemisphere_dict = {}
+    #     hem_title = hemisphere.find('a').find('img').get('alt')
+    #     hem_img_temp = hemisphere.find('a').get('href')
+    #     hem_img = f'https://astrogeology.usgs.gov/{hem_img_temp}'
+    #     hem_urls.append({'title':hem_title,'img_urls':hem_img})
+    #     print(hem_title, hem_img)
+    # hem_urls
 
 
     # Store data in a dictionary
@@ -108,7 +108,9 @@ def scrape():
         "news_title": news_title,
         "news_p": news_p,
         "featured_image_url": featured_image_url, 
-        "mars_weather": mars_weather
+        "mars_weather": mars_weather, 
+        "mars_facts": mars_facts,
+        "mars_images": hem_urls
     }
 
     # Close the browser after scraping
@@ -118,4 +120,4 @@ def scrape():
     return mars_data
 
 if __name__ == "__main__":
-    print(scrape())
+    print(scrape_info())

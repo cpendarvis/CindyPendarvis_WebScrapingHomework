@@ -15,12 +15,75 @@
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape News Data</a></p>
     </div>
-    <img src="{{ vacation.sloth_img }}" alt="Sloth">
-    <h3>The typical weather in Costa Rica is:</h2>
+    <h2>Latest Mars News</h2>
     <h3>News Title: {{ mars_data.news_title }}</h3>
     <h3>News description: {{ mars_data.news_p }}</h3>
   </div>
+  <br><br>
+
+  <div class="container-fluid">
+    <div class="col-md-8">
+    <h2>Featured Mars Image</h2>
+      <img src="{{ mars_data.featured_image_url }}" width="800" height="600" alt="featured-image">
+    </div>
+
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-heading">Current Weather on Mars</div>
+            <div class="panel-body"> {{ mars_data.mars_weather }} </div>
+          </div>
+          <div class="col-md-12">
+            <h2>Mars Facts</h2>
+            {{mars_data.mars_facts}}
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
+<br><br>
+  <!-- <div class="container-fluid">
+    <center><h2>Mars Hemispheres</h2></center>
+  <hr>
+</div>
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+          <p class="card-text">Cerberus Hemisphere</p>
+          <img class="card-img-top" src="{{mars_data.mars_images[0]['img_url']}}" width="600" height="600" alt="cerberus">
+          <div class="card-body">
+          </div>
+      </div>  <br><br>
+    </div>
+  
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+          <p class="card-text">Schiaparelli Hemisphere</p>
+          <img class="card-img-top" src="{{mars_data.mars_images[1]['img_url']}}" width="600" height="600" alt="cerberus">
+          <div class="card-body">
+          </div>
+      </div> <br><br> 
+    </div>
+
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+          <p class="card-text">Syrtis Major Hemisphere</p>
+          <img class="card-img-top" src="{{mars_data.mars_images[2]['img_url']}}" width="600" height="600" alt="cerberus">
+          <div class="card-body">
+          </div>
+      </div>  
+    </div>
+
+    <div class="col-md-6">
+      <div class="card" style="width: 18rem;">
+          <p class="card-text">Valles Marineris Hemisphere</p>
+          <img class="card-img-top" src="{{mars_data.mars_images[3]['img_url']}}" width="600" height="600" alt="cerberus">
+          <div class="card-body">
+          </div>
+      </div>  
+    </div> -->
+
+  
+</div>
 </body>
 
 </html>
