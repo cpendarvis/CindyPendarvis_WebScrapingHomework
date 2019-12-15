@@ -21,16 +21,15 @@ def scrape_info():
     html = browser.html
     soup = bs(html, 'html.parser')
 
-    try: 
-        news_title = soup.find("div", class_="content_title").find("a").get_text()
-        news_p = soup.find("div", class_="article_teaser_body").get_text()
-    except: 
-        news_title = 'Latest headline could not be found'
-        news_p = ''
-        print('News error')
-    
-        news_title
-        news_p
+    # Save the latest article's title and description
+    news_title = soup.find("div", class_ = "content_title").text
+    news_title
+
+    news_p = soup.find("div", class_ = "rollover_description_inner").text
+    news_p
+
+    mars_data["news_title"] = news_title
+    mars_data["news_p"] = news_p
 
     # JPL Mars Space Images - Featured Image
     img_url = 'https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars'
@@ -50,6 +49,7 @@ def scrape_info():
 
     featured_image_url = f'https://www.jpl.nasa.gov{partial_url}'
     featured_image_url
+    mars_data["featured_image_url"] = featured_image_url
 
     #Mars Weather
     mars_url = 'https://twitter.com/marswxreport?lang=en'
@@ -59,6 +59,7 @@ def scrape_info():
 
     mars_weather = soup3.find("p", class_ = "TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
     mars_weather
+    mars_data["mars_weather"] = mars_weather
 
     facts_url = 'https://space-facts.com/mars/'
     table = pd.read_html(facts_url)
@@ -66,10 +67,11 @@ def scrape_info():
     mars_facts = table[0]
     mars_facts.columns = ["Category", "Fact"]
 
-    mars_facts
-
     html_table = mars_facts.to_html()
     html_table
+    
+    mars_facts
+    mars_data["mars_facts"] = html_table
 
     # Mars Hemispheres
     #Visit the Mars Hemispheres URL 
@@ -93,25 +95,17 @@ def scrape_info():
         hem_urls.append(dictionary)
         browser.back() 
 
-    # for hemisphere in hemispheres:
-    #     #hemisphere_dict = {}
-    #     hem_title = hemisphere.find('a').find('img').get('alt')
-    #     hem_img_temp = hemisphere.find('a').get('href')
-    #     hem_img = f'https://astrogeology.usgs.gov/{hem_img_temp}'
-    #     hem_urls.append({'title':hem_title,'img_urls':hem_img})
-    #     print(hem_title, hem_img)
-    # hem_urls
-
+    mars_data["hem_urls"] = hem_urls
 
     # Store data in a dictionary
-    mars_data = {
-        "news_title": news_title,
-        "news_p": news_p,
-        "featured_image_url": featured_image_url, 
-        "mars_weather": mars_weather, 
-        "mars_facts": mars_facts,
-        "mars_images": hem_urls
-    }
+    # mars_data = {
+    #     "news_title": news_title,
+    #     "news_p": news_p,
+    #     "featured_image_url": featured_image_url, 
+    #      "mars_weather": mars_weather,
+    #      "mars_facts": mars_facts,
+    #      "mars_images": hem_urls
+    #  }
 
     # Close the browser after scraping
     browser.quit()
