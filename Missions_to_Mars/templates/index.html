@@ -34,7 +34,7 @@
           </div>
           <div class="col-md-12">
             <h2>Mars Facts</h2>
-            {{mars_data.mars_facts}}
+            {{mars_data.mars_facts | safe }}
           </div>
         </div>
       </div>
@@ -49,7 +49,7 @@
     <div class="col-md-6">
       <div class="card" style="width: 18rem;">
           <p class="card-text">Cerberus Hemisphere</p>
-          <img class="card-img-top" src="{{mars_data.mars_images[0]['img_url']}}" width="600" height="600" alt="cerberus">
+          <img class="card-img-top" src="{{mars_data.hem_urls[0]['img_url']}}" width="600" height="600" alt="cerberus">
           <div class="card-body">
           </div>
       </div>  <br><br>
@@ -58,7 +58,7 @@
     <div class="col-md-6">
       <div class="card" style="width: 18rem;">
           <p class="card-text">Schiaparelli Hemisphere</p>
-          <img class="card-img-top" src="{{mars_data.mars_images[1]['img_url']}}" width="600" height="600" alt="cerberus">
+          <img class="card-img-top" src="{{mars_data.hem_urls[1]['img_url']}}" width="600" height="600" alt="cerberus">
           <div class="card-body">
           </div>
       </div> <br><br> 
@@ -67,7 +67,7 @@
     <div class="col-md-6">
       <div class="card" style="width: 18rem;">
           <p class="card-text">Syrtis Major Hemisphere</p>
-          <img class="card-img-top" src="{{mars_data.mars_images[2]['img_url']}}" width="600" height="600" alt="cerberus">
+          <img class="card-img-top" src="{{mars_data.hem_urls[2]['img_url']}}" width="600" height="600" alt="cerberus">
           <div class="card-body">
           </div>
       </div>  
@@ -76,7 +76,7 @@
     <div class="col-md-6">
       <div class="card" style="width: 18rem;">
           <p class="card-text">Valles Marineris Hemisphere</p>
-          <img class="card-img-top" src="{{mars_data.mars_images[3]['img_url']}}" width="600" height="600" alt="cerberus">
+          <img class="card-img-top" src="{{mars_data.hem_urls[3]['img_url']}}" width="600" height="600" alt="cerberus">
           <div class="card-body">
           </div>
       </div>  
